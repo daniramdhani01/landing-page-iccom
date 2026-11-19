@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>iCCom - Indonesia Cloud Community</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13a4ec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101c22",
+                        "accent-yellow": "#FFE600",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "mono": ["JetBrains Mono", "monospace"],
+                    },
+                    borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+                    boxShadow: {
+                        "brutal": "4px 4px 0px 0px #000000",
+                        "brutal-sm": "2px 2px 0px 0px #000000",
+                        "brutal-hover": "1px 1px 0px 0px #000000",
+                        "brutal-xl": "8px 8px 0px 0px #000000",
+                    }
+                },
+            },
+        }
+    </script>
+<style>.bg-blueprint-grid {
+            background-color: #f6f7f8;
+            background-image: 
+                linear-gradient(#13a4ec20 1px, transparent 1px), 
+                linear-gradient(90deg, #13a4ec20 1px, transparent 1px);
+            background-size: 40px 40px;
+        }.crosshair {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            pointer-events: none;
+        }
+        .crosshair::before, .crosshair::after {
+            content: '';
+            position: absolute;
+            background-color: #13a4ec;
+        }
+        .crosshair::before {
+            top: 9px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+        }
+        .crosshair::after {
+            left: 9px;
+            top: 0;
+            height: 100%;
+            width: 2px;
+        }.dimension-line-h {
+            position: relative;
+            height: 1px;
+            background-color: #13a4ec;
+        }
+        .dimension-line-h::before, .dimension-line-h::after {
+            content: '';
+            position: absolute;
+            top: -3px;
+            width: 1px;
+            height: 7px;
+            background-color: #13a4ec;
+        }
+        .dimension-line-h::before { left: 0; }
+        .dimension-line-h::after { right: 0; }
+    </style>
+</head>
+<body class="font-display bg-background-light text-slate-900 bg-blueprint-grid min-h-screen relative selection:bg-accent-yellow selection:text-black">
+<nav class="fixed top-0 w-full z-50 border-b-2 border-black bg-white/95 backdrop-blur-sm">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-20">
+<div class="flex items-center gap-2 group cursor-pointer">
+<div class="w-10 h-10 bg-primary border-2 border-black shadow-brutal-sm flex items-center justify-center">
+<span class="text-white font-bold text-xl">iC</span>
+</div>
+<div class="flex flex-col">
+<span class="font-bold text-lg leading-none tracking-tight">iCCom</span>
+<span class="font-mono text-[10px] text-primary uppercase tracking-wider">Ver 2.0.0</span>
+</div>
+</div>
+<div class="hidden md:flex space-x-8 items-center">
+<a class="text-sm font-bold uppercase tracking-wider hover:text-primary hover:underline decoration-2 decoration-primary underline-offset-4 transition-all" href="#benefits">Benefits</a>
+<a class="text-sm font-bold uppercase tracking-wider hover:text-primary hover:underline decoration-2 decoration-primary underline-offset-4 transition-all" href="#programs">Programs</a>
+<a class="text-sm font-bold uppercase tracking-wider hover:text-primary hover:underline decoration-2 decoration-primary underline-offset-4 transition-all" href="#events">Events</a>
+<a class="text-sm font-bold uppercase tracking-wider hover:text-primary hover:underline decoration-2 decoration-primary underline-offset-4 transition-all" href="#articles">Blog</a>
+<a class="relative inline-flex items-center justify-center px-6 py-2 overflow-hidden font-bold text-white transition-all duration-300 bg-black border-2 border-black rounded shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] group" href="#join">
+<span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-primary rounded-full group-hover:w-56 group-hover:h-56 opacity-10"></span>
+<span class="relative">INITIALIZE_JOIN</span>
+</a>
+</div>
+<div class="md:hidden flex items-center">
+<button class="text-black hover:text-primary p-2 border-2 border-transparent hover:border-black rounded transition-all">
+<span class="material-icons">menu</span>
+</button>
+</div>
+</div>
+</div>
+</nav>
+<main class="pt-20">
+<section class="relative py-24 md:py-40 overflow-hidden border-b-2 border-dashed border-black/20">
+<div class="crosshair top-10 left-10 hidden md:block"></div>
+<div class="crosshair bottom-10 right-10 hidden md:block"></div>
+<div class="crosshair top-10 right-10 hidden md:block"></div>
+<div class="crosshair bottom-10 left-10 hidden md:block"></div>
+<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+<div class="flex flex-col items-center text-center">
+<div class="relative z-10 w-full flex flex-col items-center">
+<div class="inline-block bg-accent-yellow border border-black px-2 py-1 mb-8 shadow-brutal-sm rotate-1">
+<span class="font-mono text-xs font-bold uppercase tracking-widest text-black">
+                                // SYSTEM STATUS: ONLINE
+                            </span>
+</div>
+<h1 class="text-6xl md:text-7xl lg:text-9xl font-black tracking-tighter leading-[0.9] mb-8 text-black">
+                            ARCHITECTING<br/>
+<span class="text-primary stroke-text">THE CLOUD.</span>
+</h1>
+<p class="text-xl md:text-2xl text-slate-700 max-w-2xl mb-12 font-medium leading-relaxed border-l-4 border-primary pl-6 mx-auto text-left md:text-center md:border-l-0 md:pl-0">
+                            Indonesia's definitive blueprint for cloud engineers, architects, and innovators. Building the future, one instance at a time.
+                        </p>
+<div class="flex flex-col sm:flex-row gap-6 justify-center w-full sm:w-auto">
+<button class="relative inline-flex items-center justify-center px-10 py-5 text-lg font-bold text-white transition-all duration-200 bg-primary border-2 border-black rounded shadow-brutal hover:shadow-brutal-hover hover:translate-x-[3px] hover:translate-y-[3px]">
+<span>INITIALIZE MEMBERSHIP</span>
+<span class="material-icons ml-2 text-base">arrow_forward</span>
+</button>
+<button class="relative inline-flex items-center justify-center px-10 py-5 text-lg font-bold text-black transition-all duration-200 bg-white border-2 border-black rounded shadow-brutal hover:shadow-brutal-hover hover:translate-x-[3px] hover:translate-y-[3px] hover:bg-gray-50">
+<span class="font-mono">VIEW_DOCS</span>
+</button>
+</div>
+<div class="mt-16 flex flex-wrap justify-center items-center gap-4 md:gap-8 text-xs font-mono text-slate-500 border-t border-dashed border-black/20 pt-8 w-full max-w-3xl">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+<span>NODES: 5,200+</span>
+</div>
+<div class="hidden md:block w-px h-4 bg-slate-400"></div>
+<div>REGION: ID_JAKARTA</div>
+<div class="hidden md:block w-px h-4 bg-slate-400"></div>
+<div>LAT: -6.2088</div>
+<div class="hidden md:block w-px h-4 bg-slate-400"></div>
+<div>UPTIME: 99.9%</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="border-y-2 border-black bg-accent-yellow overflow-hidden">
+<div class="flex whitespace-nowrap overflow-hidden py-3">
+<div class="animate-marquee flex gap-12 font-mono font-bold text-black uppercase tracking-widest text-sm">
+<span>/// DEPLOYING KNOWLEDGE ///</span>
+<span>AWS</span>
+<span>GOOGLE CLOUD</span>
+<span>AZURE</span>
+<span>ALIBABA CLOUD</span>
+<span>KUBERNETES</span>
+<span>SERVERLESS</span>
+<span>TERRAFORM</span>
+<span>/// DEPLOYING KNOWLEDGE ///</span>
+<span>AWS</span>
+<span>GOOGLE CLOUD</span>
+<span>AZURE</span>
+<span>ALIBABA CLOUD</span>
+</div>
+</div>
+</section>
+<section class="py-20 md:py-32 relative" id="benefits">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex items-end justify-between mb-16 border-b-2 border-black pb-4">
+<div>
+<span class="font-mono text-primary font-bold text-sm mb-2 block">SEC_01: BENEFITS</span>
+<h2 class="text-4xl md:text-5xl font-black uppercase">Core Modules</h2>
+</div>
+<div class="hidden md:block text-right">
+<div class="font-mono text-xs text-slate-500">REF: MEMBER_VALUE</div>
+<div class="h-1 w-24 bg-primary mt-2 ml-auto"></div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+<div class="bg-white border-2 border-black p-6 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all relative overflow-hidden group">
+<div class="absolute top-0 right-0 bg-black text-white px-2 py-0.5 font-mono text-[10px] font-bold">NET_01</div>
+<div class="w-12 h-12 bg-primary/10 border-2 border-black flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-icons text-2xl">hub</span>
+</div>
+<h3 class="text-xl font-bold mb-3 uppercase">Networking</h3>
+<p class="text-sm text-slate-600 leading-relaxed">
+                    Connect with industry leaders and peers. Expand your professional topology across the region.
+                </p>
+</div>
+<div class="bg-white border-2 border-black p-6 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all relative overflow-hidden group">
+<div class="absolute top-0 right-0 bg-accent-yellow text-black px-2 py-0.5 font-mono text-[10px] font-bold">EDU_02</div>
+<div class="w-12 h-12 bg-accent-yellow/10 border-2 border-black flex items-center justify-center mb-6 group-hover:bg-accent-yellow group-hover:text-black transition-colors">
+<span class="material-icons text-2xl">school</span>
+</div>
+<h3 class="text-xl font-bold mb-3 uppercase">Learning</h3>
+<p class="text-sm text-slate-600 leading-relaxed">
+                    Access curated workshops and bootcamps. Continuous deployment of knowledge to your brain.
+                </p>
+</div>
+<div class="bg-white border-2 border-black p-6 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all relative overflow-hidden group">
+<div class="absolute top-0 right-0 bg-black text-white px-2 py-0.5 font-mono text-[10px] font-bold">MNT_03</div>
+<div class="w-12 h-12 bg-primary/10 border-2 border-black flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-icons text-2xl">diversity_3</span>
+</div>
+<h3 class="text-xl font-bold mb-3 uppercase">Mentoring</h3>
+<p class="text-sm text-slate-600 leading-relaxed">
+                    Get guidance from senior architects. Debug your career path with expert code reviews.
+                </p>
+</div>
+<div class="bg-white border-2 border-black p-6 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all relative overflow-hidden group">
+<div class="absolute top-0 right-0 bg-accent-yellow text-black px-2 py-0.5 font-mono text-[10px] font-bold">COL_04</div>
+<div class="w-12 h-12 bg-accent-yellow/10 border-2 border-black flex items-center justify-center mb-6 group-hover:bg-accent-yellow group-hover:text-black transition-colors">
+<span class="material-icons text-2xl">handshake</span>
+</div>
+<h3 class="text-xl font-bold mb-3 uppercase">Collaboration</h3>
+<p class="text-sm text-slate-600 leading-relaxed">
+                    Work on open-source projects. Fork repositories and merge pull requests with the community.
+                </p>
+</div>
+</div>
+</div>
+</section>
+<section class="py-20 bg-white border-y-2 border-black relative overflow-hidden" id="programs">
+<div class="absolute inset-0 opacity-5" style="background-image: radial-gradient(#000 1px, transparent 1px); background-size: 20px 20px;"></div>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+<div class="text-center mb-16">
+<span class="font-mono text-primary font-bold text-sm mb-2 block">SEC_02: FLOW</span>
+<h2 class="text-4xl md:text-5xl font-black uppercase">Execution Pipeline</h2>
+</div>
+<div class="relative">
+<div class="hidden md:block absolute top-1/2 left-0 w-full h-2 bg-black -translate-y-1/2 z-0"></div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 relative z-10">
+<div class="bg-background-light border-2 border-black p-8 text-center shadow-brutal relative group hover:-translate-y-2 transition-transform">
+<div class="w-16 h-16 bg-white border-2 border-black rounded-full flex items-center justify-center mx-auto mb-6 relative z-10 shadow-sm">
+<span class="font-black text-2xl">01</span>
+</div>
+<h3 class="text-2xl font-bold mb-2">JOIN</h3>
+<p class="text-sm text-slate-600">Initialize your membership and enter the ecosystem.</p>
+</div>
+<div class="bg-background-light border-2 border-black p-8 text-center shadow-brutal relative group hover:-translate-y-2 transition-transform">
+<div class="w-16 h-16 bg-primary border-2 border-black rounded-full flex items-center justify-center mx-auto mb-6 relative z-10 shadow-sm text-white">
+<span class="font-black text-2xl">02</span>
+</div>
+<h3 class="text-2xl font-bold mb-2">PARTICIPATE</h3>
+<p class="text-sm text-slate-600">Engage in events, workshops, and discussions.</p>
+</div>
+<div class="bg-background-light border-2 border-black p-8 text-center shadow-brutal relative group hover:-translate-y-2 transition-transform">
+<div class="w-16 h-16 bg-accent-yellow border-2 border-black rounded-full flex items-center justify-center mx-auto mb-6 relative z-10 shadow-sm">
+<span class="font-black text-2xl">03</span>
+</div>
+<h3 class="text-2xl font-bold mb-2">GROW</h3>
+<p class="text-sm text-slate-600">Level up your career and lead the next generation.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="py-20 md:py-32 relative" id="events">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex items-end justify-between mb-12 border-b-2 border-black pb-4">
+<div>
+<span class="font-mono text-primary font-bold text-sm mb-2 block">SEC_03: ROADMAP</span>
+<h2 class="text-4xl md:text-5xl font-black uppercase">Events Log</h2>
+</div>
+<div class="flex gap-2">
+<button class="w-10 h-10 border-2 border-black bg-white flex items-center justify-center hover:bg-black hover:text-white transition-colors"><span class="material-icons">chevron_left</span></button>
+<button class="w-10 h-10 border-2 border-black bg-white flex items-center justify-center hover:bg-black hover:text-white transition-colors"><span class="material-icons">chevron_right</span></button>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<div class="lg:col-span-2 bg-white border-2 border-black p-0 shadow-brutal-xl relative group overflow-hidden flex flex-col">
+<div class="absolute top-4 left-4 bg-primary text-white px-3 py-1 font-mono text-xs font-bold z-10 border border-black shadow-sm">FEATURED_EVENT</div>
+<div class="h-64 bg-slate-100 border-b-2 border-black relative pattern-grid-lg">
+<div class="absolute inset-0 opacity-10" style="background-image: linear-gradient(45deg, #000 25%, transparent 25%, transparent 75%, #000 75%, #000), linear-gradient(45deg, #000 25%, transparent 25%, transparent 75%, #000 75%, #000); background-size: 20px 20px; background-position: 0 0, 10px 10px;"></div>
+<div class="absolute bottom-4 right-4 bg-white border border-black px-4 py-2 text-center">
+<div class="text-xs font-mono text-slate-500">DATE</div>
+<div class="text-xl font-bold">OCT 12</div>
+</div>
+</div>
+<div class="p-8 flex-grow flex flex-col">
+<div class="flex gap-2 mb-4 font-mono text-xs text-primary">
+<span class="border border-primary px-1">JAKARTA</span>
+<span class="border border-primary px-1">OFFLINE</span>
+</div>
+<h3 class="text-3xl md:text-4xl font-black mb-4 uppercase">Cloud Native Summit 2023</h3>
+<p class="text-slate-600 mb-6 flex-grow">
+                        Deep dive into Kubernetes orchestration and microservices architecture patterns. Join 500+ engineers for a full day of technical sessions.
+                    </p>
+<a class="inline-flex items-center justify-between w-full bg-black text-white px-6 py-4 font-bold border-2 border-transparent hover:bg-white hover:text-black hover:border-black transition-colors group-hover:shadow-brutal-sm" href="#">
+<span>RSVP NOW</span>
+<span class="material-icons">arrow_forward</span>
+</a>
+</div>
+</div>
+<div class="lg:col-span-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4">
+<div class="bg-white border-2 border-black p-4 shadow-brutal-sm hover:translate-x-1 transition-transform cursor-pointer">
+<div class="flex justify-between items-start mb-2">
+<span class="font-mono text-[10px] bg-slate-200 px-1">OCT 29</span>
+<span class="w-2 h-2 rounded-full bg-green-500"></span>
+</div>
+<h4 class="font-bold text-lg leading-tight mb-1">Serverless Sunday</h4>
+<p class="text-xs text-slate-500 truncate">Online • Monthly Meetup</p>
+</div>
+<div class="bg-white border-2 border-black p-4 shadow-brutal-sm hover:translate-x-1 transition-transform cursor-pointer">
+<div class="flex justify-between items-start mb-2">
+<span class="font-mono text-[10px] bg-slate-200 px-1">NOV 15</span>
+<span class="w-2 h-2 rounded-full bg-accent-yellow"></span>
+</div>
+<h4 class="font-bold text-lg leading-tight mb-1">DevOps Retreat</h4>
+<p class="text-xs text-slate-500 truncate">Bali • Senior Engineers</p>
+</div>
+<div class="bg-white border-2 border-black p-4 shadow-brutal-sm hover:translate-x-1 transition-transform cursor-pointer">
+<div class="flex justify-between items-start mb-2">
+<span class="font-mono text-[10px] bg-slate-200 px-1">DEC 01</span>
+<span class="w-2 h-2 rounded-full bg-slate-300"></span>
+</div>
+<h4 class="font-bold text-lg leading-tight mb-1">Year End Hackathon</h4>
+<p class="text-xs text-slate-500 truncate">Hybrid • Open for all</p>
+</div>
+<div class="bg-white border-2 border-black p-4 shadow-brutal-sm hover:translate-x-1 transition-transform cursor-pointer opacity-75">
+<div class="flex justify-between items-start mb-2">
+<span class="font-mono text-[10px] bg-slate-200 px-1">JAN 20</span>
+<span class="w-2 h-2 rounded-full bg-slate-300"></span>
+</div>
+<h4 class="font-bold text-lg leading-tight mb-1">Kickoff 2024</h4>
+<p class="text-xs text-slate-500 truncate">Jakarta • Townhall</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="py-20 bg-background-dark text-white border-y-4 border-primary relative overflow-hidden">
+<div class="absolute inset-0 opacity-10" style="background-image: linear-gradient(#13a4ec 1px, transparent 1px), linear-gradient(90deg, #13a4ec 1px, transparent 1px); background-size: 40px 40px;"></div>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 text-center">
+<div class="p-4">
+<div class="text-4xl md:text-6xl font-black text-primary mb-2">5.2K</div>
+<div class="font-mono text-sm uppercase tracking-widest text-gray-400">Total Nodes</div>
+</div>
+<div class="p-4">
+<div class="text-4xl md:text-6xl font-black text-accent-yellow mb-2">120+</div>
+<div class="font-mono text-sm uppercase tracking-widest text-gray-400">Events Deployed</div>
+</div>
+<div class="p-4">
+<div class="text-4xl md:text-6xl font-black text-white mb-2">45</div>
+<div class="font-mono text-sm uppercase tracking-widest text-gray-400">Partner Orgs</div>
+</div>
+<div class="p-4">
+<div class="text-4xl md:text-6xl font-black text-primary mb-2">15</div>
+<div class="font-mono text-sm uppercase tracking-widest text-gray-400">Cities Active</div>
+</div>
+</div>
+</div>
+</section>
+<section class="py-20 md:py-32 relative bg-blueprint-grid border-b-2 border-black">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex items-end justify-between mb-16 border-b-2 border-black pb-4">
+<div>
+<span class="font-mono text-primary font-bold text-sm mb-2 block">SEC_04: NETWORK</span>
+<h2 class="text-4xl md:text-5xl font-black uppercase">Our Partners</h2>
+</div>
+<div class="hidden md:block text-right">
+<div class="font-mono text-xs text-slate-500">REF: PARTNERS_LOG</div>
+<div class="h-1 w-24 bg-primary mt-2 ml-auto"></div>
+</div>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+<div class="group relative bg-white border-2 border-black p-8 flex items-center justify-center shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all h-32">
+<div class="absolute top-0 right-0 bg-slate-100 text-[8px] font-mono px-1 py-0.5 border-l border-b border-black text-slate-500">ID: AWS_01</div>
+<span class="font-bold text-2xl text-slate-800 tracking-tighter group-hover:text-primary transition-colors">aws</span>
+</div>
+<div class="group relative bg-white border-2 border-black p-8 flex items-center justify-center shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all h-32">
+<div class="absolute top-0 right-0 bg-slate-100 text-[8px] font-mono px-1 py-0.5 border-l border-b border-black text-slate-500">ID: GCP_02</div>
+<span class="font-bold text-2xl text-slate-800 tracking-tighter group-hover:text-primary transition-colors">Google Cloud</span>
+</div>
+<div class="group relative bg-white border-2 border-black p-8 flex items-center justify-center shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all h-32">
+<div class="absolute top-0 right-0 bg-slate-100 text-[8px] font-mono px-1 py-0.5 border-l border-b border-black text-slate-500">ID: AZR_03</div>
+<span class="font-bold text-2xl text-slate-800 tracking-tighter group-hover:text-primary transition-colors">Azure</span>
+</div>
+<div class="group relative bg-white border-2 border-black p-8 flex items-center justify-center shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all h-32">
+<div class="absolute top-0 right-0 bg-slate-100 text-[8px] font-mono px-1 py-0.5 border-l border-b border-black text-slate-500">ID: OCL_04</div>
+<span class="font-bold text-2xl text-slate-800 tracking-tighter group-hover:text-primary transition-colors">Oracle</span>
+</div>
+<div class="group relative bg-white border-2 border-black p-8 flex items-center justify-center shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all h-32">
+<div class="absolute top-0 right-0 bg-slate-100 text-[8px] font-mono px-1 py-0.5 border-l border-b border-black text-slate-500">ID: DGO_05</div>
+<span class="font-bold text-2xl text-slate-800 tracking-tighter group-hover:text-primary transition-colors">DigitalOcean</span>
+</div>
+</div>
+</div>
+</section>
+<section class="py-20 md:py-32" id="articles">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex items-center justify-between mb-12">
+<h2 class="text-4xl font-black uppercase"><span class="text-primary mr-2">///</span>Knowledge Base</h2>
+<a class="font-mono text-sm font-bold border-b-2 border-black hover:text-primary hover:border-primary" href="#">VIEW_ALL_LOGS</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<article class="group cursor-pointer">
+<div class="border-2 border-black bg-white p-2 shadow-brutal group-hover:shadow-brutal-hover group-hover:translate-x-[2px] group-hover:translate-y-[2px] transition-all">
+<div class="h-48 bg-slate-200 border border-black mb-4 relative overflow-hidden">
+<div class="absolute inset-0 bg-primary/10"></div>
+<div class="absolute top-2 left-2 bg-black text-white px-2 py-1 text-[10px] font-mono font-bold">TUTORIAL</div>
+</div>
+<div class="px-2 pb-4">
+<h3 class="font-bold text-xl mb-3 leading-tight group-hover:text-primary transition-colors">Optimizing AWS Lambda Cold Starts</h3>
+<p class="text-sm text-slate-600 mb-4 line-clamp-3">Learn the best practices for reducing latency in your serverless functions using provisioned concurrency.</p>
+<div class="flex items-center gap-2 text-xs font-mono text-slate-500">
+<span class="material-icons text-sm">schedule</span>
+<span>5 MIN READ</span>
+</div>
+</div>
+</div>
+</article>
+<article class="group cursor-pointer">
+<div class="border-2 border-black bg-white p-2 shadow-brutal group-hover:shadow-brutal-hover group-hover:translate-x-[2px] group-hover:translate-y-[2px] transition-all">
+<div class="h-48 bg-slate-200 border border-black mb-4 relative overflow-hidden">
+<div class="absolute inset-0 bg-accent-yellow/10"></div>
+<div class="absolute top-2 left-2 bg-black text-white px-2 py-1 text-[10px] font-mono font-bold">OPINION</div>
+</div>
+<div class="px-2 pb-4">
+<h3 class="font-bold text-xl mb-3 leading-tight group-hover:text-primary transition-colors">The State of Cloud in Indonesia 2024</h3>
+<p class="text-sm text-slate-600 mb-4 line-clamp-3">Our annual report on cloud adoption trends, salary benchmarks, and skill demand across the archipelago.</p>
+<div class="flex items-center gap-2 text-xs font-mono text-slate-500">
+<span class="material-icons text-sm">schedule</span>
+<span>12 MIN READ</span>
+</div>
+</div>
+</div>
+</article>
+<article class="group cursor-pointer">
+<div class="border-2 border-black bg-white p-2 shadow-brutal group-hover:shadow-brutal-hover group-hover:translate-x-[2px] group-hover:translate-y-[2px] transition-all">
+<div class="h-48 bg-slate-200 border border-black mb-4 relative overflow-hidden">
+<div class="absolute inset-0 bg-black/5"></div>
+<div class="absolute top-2 left-2 bg-black text-white px-2 py-1 text-[10px] font-mono font-bold">CASE_STUDY</div>
+</div>
+<div class="px-2 pb-4">
+<h3 class="font-bold text-xl mb-3 leading-tight group-hover:text-primary transition-colors">Migrating a Fintech Monolith to Microservices</h3>
+<p class="text-sm text-slate-600 mb-4 line-clamp-3">A detailed breakdown of how local fintech giant 'DompetKu' handled their massive migration with zero downtime.</p>
+<div class="flex items-center gap-2 text-xs font-mono text-slate-500">
+<span class="material-icons text-sm">schedule</span>
+<span>8 MIN READ</span>
+</div>
+</div>
+</div>
+</article>
+</div>
+</div>
+</section>
+<section class="py-20 bg-accent-yellow border-t-2 border-black">
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+<h2 class="text-4xl font-black uppercase text-center mb-12">System Queries</h2>
+<div class="space-y-4">
+<div class="bg-white border-2 border-black shadow-brutal-sm">
+<details class="group">
+<summary class="flex justify-between items-center font-bold p-6 cursor-pointer list-none">
+<span>IS MEMBERSHIP FREE?</span>
+<span class="transition group-open:rotate-180">
+<span class="material-icons">expand_more</span>
+</span>
+</summary>
+<div class="text-slate-600 px-6 pb-6 text-sm leading-relaxed border-t-2 border-dashed border-black/20 pt-4">
+                        Yes. Access to our community Discord, basic workshops, and networking events is completely free. We believe knowledge should be open source.
+                    </div>
+</details>
+</div>
+<div class="bg-white border-2 border-black shadow-brutal-sm">
+<details class="group">
+<summary class="flex justify-between items-center font-bold p-6 cursor-pointer list-none">
+<span>HOW DO I CONTRIBUTE?</span>
+<span class="transition group-open:rotate-180">
+<span class="material-icons">expand_more</span>
+</span>
+</summary>
+<div class="text-slate-600 px-6 pb-6 text-sm leading-relaxed border-t-2 border-dashed border-black/20 pt-4">
+                        You can contribute by speaking at events, writing articles, or mentoring juniors. Join our Discord and ping the @CommunityManager role to get started.
+                    </div>
+</details>
+</div>
+<div class="bg-white border-2 border-black shadow-brutal-sm">
+<details class="group">
+<summary class="flex justify-between items-center font-bold p-6 cursor-pointer list-none">
+<span>IS THIS ONLY FOR SENIORS?</span>
+<span class="transition group-open:rotate-180">
+<span class="material-icons">expand_more</span>
+</span>
+</summary>
+<div class="text-slate-600 px-6 pb-6 text-sm leading-relaxed border-t-2 border-dashed border-black/20 pt-4">
+                        Absolutely not. We have tracks for everyone from "Hello World" beginners to Principal Architects. Our mentoring program is specifically designed to bridge this gap.
+                    </div>
+</details>
+</div>
+</div>
+</div>
+</section>
+<section class="py-20 md:py-32 relative overflow-hidden" id="join">
+<div class="absolute right-0 top-0 w-1/3 h-full bg-primary/5 border-l-2 border-dashed border-black/10 hidden lg:block"></div>
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+<div class="bg-white border-2 border-black p-8 md:p-16 shadow-brutal relative">
+<div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-accent-yellow px-4 py-1 border border-black font-mono text-xs font-bold shadow-sm">
+                        ACCESS: PUBLIC
+                    </div>
+<h2 class="text-4xl md:text-6xl font-black mb-6">READY TO DEPLOY?</h2>
+<p class="text-lg text-slate-600 mb-10 max-w-lg mx-auto">
+                        Join 5,200+ engineers in Indonesia's fastest growing cloud community. Get access to exclusive blueprints, workshops, and job opportunities.
+                    </p>
+<div class="flex flex-col sm:flex-row justify-center gap-4">
+<a class="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white transition-all duration-200 bg-black border-2 border-black rounded shadow-brutal hover:shadow-brutal-hover hover:translate-x-[3px] hover:translate-y-[3px]" href="#">
+<span class="mr-2">JOIN DISCORD</span>
+<img alt="Discord" class="w-6 h-6 object-contain filter grayscale brightness-200" data-alt="Discord Logo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPvV7uq79PSP4967_w6w_gMRdRBqT-gNaaPIuNKapJgOwO9j3AkJ_e6CwUPyrgSakM3jx1QFEVlvw9-PHd_Qf_shib5ny1ZDu82IyVnz3SreyZcp8AJeixihbiV43oSNO3LzOEr8R__PIIG1jPNN1PKSKHKjYSkX_n3CjadC_UBvunxerru_adtJJhBscCfDRharlbqCjxwirO3XdvdV7Ef81DiUt8E8Qe0UGmUeswlxe3Z9-J_AXWItqYoPukjIeww8fpUkiTzjY"/>
+</a>
+<a class="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-black transition-all duration-200 bg-[#25D366] border-2 border-black rounded shadow-brutal hover:shadow-brutal-hover hover:translate-x-[3px] hover:translate-y-[3px]" href="#">
+<span class="mr-2">JOIN WHATSAPP</span>
+<span class="material-icons text-black">chat</span>
+</a>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer class="bg-background-dark text-white border-t-4 border-primary pt-16 pb-8 font-mono relative overflow-hidden">
+<div class="absolute inset-0 opacity-10" style="background-image: linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px); background-size: 40px 40px;"></div>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-gray-700 pb-12 mb-12">
+<div class="col-span-1 md:col-span-1">
+<div class="flex items-center gap-2 mb-6">
+<div class="w-8 h-8 bg-primary border border-white flex items-center justify-center text-black font-bold">iC</div>
+<span class="font-bold text-xl">iCCom</span>
+</div>
+<p class="text-gray-400 text-xs leading-relaxed mb-6">
+                        UNIT 42, CLOUD DISTRICT<br/>
+                        JAKARTA, INDONESIA<br/>
+                        ID_REGION_1
+                    </p>
+<div class="flex gap-4">
+<a class="text-gray-400 hover:text-primary" href="#"><span class="material-icons">alternate_email</span></a>
+<a class="text-gray-400 hover:text-primary" href="#"><span class="material-icons">code</span></a>
+<a class="text-gray-400 hover:text-primary" href="#"><span class="material-icons">rss_feed</span></a>
+</div>
+</div>
+<div>
+<h4 class="text-primary font-bold mb-6 text-sm uppercase tracking-wider">[ SITEMAP ]</h4>
+<ul class="space-y-3 text-sm text-gray-300">
+<li><a class="hover:text-white hover:underline decoration-primary decoration-2 underline-offset-4" href="#">Home_Base</a></li>
+<li><a class="hover:text-white hover:underline decoration-primary decoration-2 underline-offset-4" href="#">About_Us</a></li>
+<li><a class="hover:text-white hover:underline decoration-primary decoration-2 underline-offset-4" href="#">Roadmap</a></li>
+<li><a class="hover:text-white hover:underline decoration-primary decoration-2 underline-offset-4" href="#">Join_Ops</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-primary font-bold mb-6 text-sm uppercase tracking-wider">[ LEGAL_DOCS ]</h4>
+<ul class="space-y-3 text-sm text-gray-300">
+<li><a class="hover:text-white" href="#">Privacy_Policy.md</a></li>
+<li><a class="hover:text-white" href="#">Terms_of_Service.md</a></li>
+<li><a class="hover:text-white" href="#">Code_of_Conduct.md</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-primary font-bold mb-6 text-sm uppercase tracking-wider">[ UPLINK ]</h4>
+<p class="text-gray-400 text-xs mb-4">Subscribe for system updates.</p>
+<div class="flex">
+<input class="bg-gray-800 border-none text-white text-xs px-3 py-2 w-full focus:ring-1 focus:ring-primary" placeholder="EMAIL_ADDR" type="email"/>
+<button class="bg-primary text-black px-3 py-2 font-bold text-xs hover:bg-white transition-colors">SUBMIT</button>
+</div>
+</div>
+</div>
+<div class="flex flex-col md:flex-row justify-between items-center text-[10px] text-gray-500 uppercase tracking-widest">
+<div>© 2023 iCCom. All Systems Operational.</div>
+<div class="mt-2 md:mt-0 flex gap-4">
+<span>Build: v2.0.0</span>
+<span>Lat: -6.175</span>
+<span>Long: 106.827</span>
+</div>
+</div>
+</div>
+</footer>
+<a class="fixed bottom-8 right-8 z-40 hidden md:flex items-center justify-center w-14 h-14 bg-accent-yellow border-2 border-black rounded-full shadow-brutal hover:scale-110 transition-transform hover:rotate-12 group" href="#" title="Contact Support">
+<span class="material-icons text-black text-2xl group-hover:hidden">chat_bubble</span>
+<span class="material-icons text-black text-2xl hidden group-hover:block">edit</span>
+</a>
+</body></html>
